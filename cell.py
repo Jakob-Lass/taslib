@@ -173,7 +173,7 @@ def test_Cell_reciprocal():
 
 def test_Cell_BMatrix():
 
-    # B matrix for 6.11, 6.11, 11.35, 90.0, 90.0, 120.0
+    # B matrix for 6.11, 6.11, 11.35, 90.0, 90.0, 120.0 as calculated by six
     BFromSix = np.array([[+0.188985358,+0.094492679,+0.000000000],
                          [+0.000000000,+0.163666121,+0.000000000],
                          [+0.000000000,+0.000000000,+0.088105727]])*2*np.pi # See note

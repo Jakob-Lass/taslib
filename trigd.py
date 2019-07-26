@@ -48,6 +48,36 @@ def Asind(d):
     return np.rad2deg(np.arcsin(d))
 
 
+def rtan(y,x):
+    """a quadrant dependent tangents in radians!"""
+    if np.all(np.isclose([x,y],[0.0,0.0])):
+        return 0.0
+    if np.isclose(x,0.0):
+        if y<0.0:
+            return -np.pi/2.0
+        else:
+            return np.pi/2.0
+    if np.abs(y) < np.abs(x):
+        val = np.arctan(np.abs(y/x))
+        if x < 0.0:
+            val = np.pi-val
+        if y < 0.0:
+            val = -val
+        return val
+    else:
+        val = np.pi/2.0 - np.arctan(np.abs(x/y))
+        if x < 0.0:
+            val = np.pi - val
+        if y < 0.0:
+            val = -val
+        return val
+
+
+def Rtand(y,x):
+    """a quadrant dependent tangents in degrees"""
+    radians = rtan(y,x)
+    return np.rad2deg(radians)
+
 
 def test_Sign():
     values = 1-2*np.random.rand(20)
@@ -113,3 +143,29 @@ def test_Acosd():
     degree = Acosd(values)
 
     assert(np.all(np.isclose(radian,degree)))
+
+def test_rtan():
+    assert(np.isclose(rtan(1.0,2.0),0.463647609))
+    assert(np.isclose(rtan(1.0,-2.0),2.677945045))
+    assert(np.isclose(rtan(-1.0,2.0),-0.463647609))
+    assert(np.isclose(rtan(-1.0,-2.0),-2.677945045))
+    assert(np.isclose(rtan(2.0,1.0),1.107148718))
+    assert(np.isclose(rtan(2.0,-1.0),2.034443936))
+    assert(np.isclose(rtan(-2.0,1.0),-1.107148718))
+    assert(np.isclose(rtan(-2.0,-1.0),-2.034443936))
+    assert(np.isclose(rtan(0.0,0.0),0.0))
+    assert(np.isclose(rtan(1.0,0.0),np.pi/2.0))
+    assert(np.isclose(rtan(-1.0,0.0),-np.pi/2.0))
+
+    x,y = 10*(1-2*np.random.rand(2))
+    radians = rtan(y,x)
+    degrees = Rtand(y,x)
+    assert(np.isclose(np.deg2rad(degrees),radians))
+
+
+    
+
+
+
+
+

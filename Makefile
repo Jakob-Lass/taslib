@@ -2,7 +2,7 @@ test:
 	pytest -vv .
 
 coveralls:
-	py.test . -vv --cov MJOLNIR;
+	py.test . -vv --cov .;
 
 coverage:
 	coverage run -m pytest -vv .
